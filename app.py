@@ -95,24 +95,20 @@ def app():
 
     # ---- FILE UPLOAD ----
     file = st.file_uploader("📂 Upload your CSV", type=["csv"])
-    
     if st.button("🎯 Load Sample Inventory Data"):
-    import urllib.request
-    url = "https://raw.githubusercontent.com/utkarshkapoor95/InsightForge/main/sample_data.csv"
-    df = pd.read_csv(url)
-    st.session_state["sample_df"] = df
-    st.success("✅ Sample data loaded!")
+            import urllib.request
+            url = "https://raw.githubusercontent.com/utkarshkapoor95/InsightForge/main/sample_data.csv"
+            df = pd.read_csv(url)
+            st.session_state["sample_df"] = df
+            st.success("✅ Sample data loaded!")
 
-if file is not None:
-    df = pd.read_csv(file)
-elif "sample_df" in st.session_state:
-    df = st.session_state["sample_df"]
-else:
-    st.info("Upload a CSV or click Load Sample Data")
-    return
-    if file is None:
-        st.info("👆 Upload a CSV file to get started")
-        return
+        if file is not None:
+            df = pd.read_csv(file)
+        elif "sample_df" in st.session_state:
+            df = st.session_state["sample_df"]
+        else:
+            st.info("👆 Upload a CSV or click Load Sample Data")
+            return
 
     df = pd.read_csv(file)
 
