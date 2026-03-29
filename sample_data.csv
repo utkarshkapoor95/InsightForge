@@ -1,0 +1,41 @@
+ProductID,ProductName,Category,StockLevel,DailyDemand,LeadTime,StorageCost,SupplierReliability,Discount,AdjustedDemand,Reorder
+P001,Cotton Shirt,Apparel,150,45,7,2.5,0.92,0.1,50,1
+P002,Denim Jeans,Apparel,80,30,10,3.2,0.88,0.05,32,1
+P003,Formal Trousers,Apparel,200,20,5,2.8,0.95,0.0,20,0
+P004,Winter Jacket,Apparel,60,15,14,5.5,0.85,0.15,17,1
+P005,Sports Shoes,Footwear,120,35,8,4.0,0.90,0.1,38,1
+P006,Casual Sneakers,Footwear,90,28,9,3.8,0.87,0.05,29,1
+P007,Leather Boots,Footwear,45,12,12,6.2,0.82,0.0,12,1
+P008,Sandals,Footwear,180,50,5,1.5,0.93,0.2,60,0
+P009,Cotton Kurti,Ethnic,220,60,6,2.2,0.94,0.1,66,0
+P010,Saree,Ethnic,100,25,8,3.5,0.89,0.05,26,0
+P011,Lehenga,Ethnic,40,8,15,8.0,0.80,0.0,8,1
+P012,Dupatta,Ethnic,300,80,4,1.0,0.96,0.15,92,0
+P013,T-Shirt,Casuals,250,70,5,1.8,0.95,0.1,77,0
+P014,Shorts,Casuals,160,40,6,1.5,0.92,0.05,42,0
+P015,Polo Shirt,Casuals,110,33,7,2.0,0.91,0.0,33,0
+P016,Hoodie,Casuals,75,22,10,3.0,0.86,0.1,24,1
+P017,Track Pants,Sportswear,130,38,7,2.3,0.90,0.05,40,0
+P018,Sports Jersey,Sportswear,95,30,8,2.8,0.88,0.1,33,1
+P019,Gym Shorts,Sportswear,170,45,5,1.6,0.93,0.0,45,0
+P020,Yoga Pants,Sportswear,85,27,9,2.5,0.87,0.15,31,1
+P021,Blazer,Formal,55,10,12,7.0,0.83,0.0,10,1
+P022,Dress Shirt,Formal,140,35,7,3.5,0.91,0.05,37,0
+P023,Tie,Formal,200,15,5,0.8,0.95,0.0,15,0
+P024,Formal Shoes,Footwear,65,18,11,5.5,0.84,0.0,18,1
+P025,Belt,Accessories,280,55,4,0.9,0.96,0.1,60,0
+P026,Wallet,Accessories,190,42,5,1.2,0.94,0.05,44,0
+P027,Handbag,Accessories,70,20,10,4.5,0.86,0.0,20,1
+P028,Sunglasses,Accessories,155,38,6,2.0,0.92,0.15,44,0
+P029,Watch,Accessories,50,12,14,8.5,0.81,0.0,12,1
+P030,Cap,Accessories,230,65,4,0.7,0.97,0.1,71,0
+P031,Scarf,Accessories,175,30,6,1.1,0.93,0.05,31,0
+P032,Gloves,Accessories,90,18,9,1.8,0.88,0.0,18,1
+P033,Socks Pack,Innerwear,320,90,3,0.5,0.98,0.1,99,0
+P034,Undershirt,Innerwear,260,70,4,0.8,0.96,0.05,73,0
+P035,Thermal Set,Innerwear,80,20,10,2.5,0.87,0.0,20,1
+P036,Sports Bra,Innerwear,115,32,7,1.5,0.91,0.1,35,0
+P037,Nightwear Set,Innerwear,95,25,8,2.0,0.89,0.05,26,1
+P038,Raincoat,Seasonal,60,15,12,4.0,0.84,0.2,18,1
+P039,Sweater,Seasonal,105,28,9,3.2,0.88,0.1,31,1
+P040,Shawl,Seasonal,140,35,7,2.2,0.90,0.05,37,0
