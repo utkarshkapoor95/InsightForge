@@ -110,8 +110,6 @@ def app():
             st.info("👆 Upload a CSV or click Load Sample Data")
             return
 
-    df = pd.read_csv(file)
-
     # ============================================
     # TABS
     # ============================================
