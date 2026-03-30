@@ -60,7 +60,8 @@ for business users — no coding required.
 
 Built using real retail inventory domain knowledge — this tool helps 
 operations and business teams:
-- Predict daily demand with **88%+ accuracy**
+- Built on real retail inventory data
+- Predicts daily demand with **88%+ R² accuracy** across 40 SKUs and 11 features
 - Identify which products need reordering
 - Understand which factors drive demand
 - Get AI-generated business recommendations instantly
