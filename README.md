@@ -9,17 +9,20 @@
 
 ## 📸 Screenshots
 
-### Login & Overview
-![Overview](screenshot1.png)
+### Login
+![Login](screenshot1.jpg)
+
+### Overview
+![Overview](screenshot2.jpg)
 
 ### Correlation Heatmap
-![Heatmap](screenshot2.png)
+![Heatmap](screenshot3.jpg)
 
 ### ML Model Results
-![ML Model](screenshot3.png)
+![ML Model](screenshot4.jpg)
 
 ### AI Business Insights
-![AI Insights](screenshot4.png)
+![AI Insights](screenshot5.jpg)
 
 ---
 
