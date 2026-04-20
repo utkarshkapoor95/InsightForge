@@ -9,9 +9,6 @@
 
 ## 📸 Screenshots
 
-### Login
-![Login](screenshot1.jpeg)
-
 ### Overview
 ![Overview](screenshot2.jpeg)
 
@@ -28,8 +25,7 @@
 
 ## 🎯 What It Does
 
-InsightForge is a complete end-to-end data analytics platform built 
-for business users — no coding required.
+InsightForge is a complete end-to-end data analytics platform built for business users — no coding required.
 
 | Feature | Description |
 |---|---|
@@ -58,10 +54,8 @@ for business users — no coding required.
 
 ## 💡 Business Use Case
 
-Built using real retail inventory domain knowledge — this tool helps 
-operations and business teams:
-- Built on real retail inventory data
-- Predicts daily demand with **88%+ R² accuracy** across 40 SKUs and 11 features
+Built using real retail inventory domain knowledge — this tool helps operations and business teams:
+- Predict daily demand with **88%+ R² accuracy** across 40 SKUs and 11 features
 - Identify which products need reordering
 - Understand which factors drive demand
 - Get AI-generated business recommendations instantly
@@ -69,6 +63,7 @@ operations and business teams:
 ---
 
 ## 🚀 Run Locally
+
 ```bash
 git clone https://github.com/utkarshkapoor95/InsightForge
 pip install -r requirements.txt
@@ -76,14 +71,22 @@ streamlit run app.py
 ```
 
 Add your Groq API key (free at console.groq.com):
+
+Create a `.env` file:
 ```
 GROQ_API_KEY=your_key_here
+```
+
+Or add it to Streamlit secrets (`~/.streamlit/secrets.toml`):
+```toml
+GROQ_API_KEY = "your_key_here"
 ```
 
 ---
 
 ## 👨‍💻 Author
 
-**Utkarsh Kapoor**  
-MBA @ ABV-IIITM Gwalior | Operations + Data & AI  
-[LinkedIn](YOUR_LINKEDIN_URL) | [GitHub](https://github.com/utkarshkapoor95)
+**Utkarsh Kapoor**
+MBA @ ABV-IIITM Gwalior | Operations + Data & AI
+
+[LinkedIn](https://linkedin.com/in/utkarsh-kapoor-618256203) | [GitHub](https://github.com/utkarshkapoor95)
