@@ -1,8 +1,8 @@
-streamlit
-pandas
-numpy
-matplotlib
-seaborn
-groq
-scikit-learn
-python-dotenv
+streamlit==1.42.0
+pandas==2.2.3
+numpy==1.26.4
+matplotlib==3.9.2
+seaborn==0.13.2
+groq==0.11.0
+scikit-learn==1.5.2
+python-dotenv==1.0.1
