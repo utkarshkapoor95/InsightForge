@@ -1,5 +1,5 @@
 # ============================================
-# 📦 LIBRARIES
+# LIBRARIES
 # ============================================
 import streamlit as st
 import pandas as pd
@@ -15,16 +15,16 @@ from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.metrics import r2_score, accuracy_score, confusion_matrix
 
 # ============================================
-# 🔐 GROQ CLIENT — Works on Cloud + Locally
+# GROQ CLIENT — Works on Streamlit Cloud + Locally
 # ============================================
 try:
     groq_client = Groq(api_key=st.secrets["GROQ_API_KEY"])
-except:
+except KeyError:
     load_dotenv()
     groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # ============================================
-# 🎨 PAGE CONFIG
+# PAGE CONFIG
 # ============================================
 st.set_page_config(
     page_title="InsightForge",
@@ -33,7 +33,7 @@ st.set_page_config(
 )
 
 # ============================================
-# 📦 SAMPLE DATA BUILT INTO APP
+# SAMPLE DATA
 # ============================================
 SAMPLE_DATA = """ProductID,ProductName,Category,StockLevel,DailyDemand,LeadTime,StorageCost,SupplierReliability,Discount,AdjustedDemand,Reorder
 P001,Cotton Shirt,Apparel,150,45,7,2.5,0.92,0.1,50,1
@@ -79,45 +79,24 @@ P040,Shawl,Seasonal,140,35,7,2.2,0.90,0.05,37,0"""
 
 
 # ============================================
-# 🔐 LOGIN
-# ============================================
-def login():
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.title("🔐 InsightForge Login")
-        st.caption("AI-Powered Data Analytics Platform")
-        st.divider()
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
-        if st.button("Login", use_container_width=True):
-            if username == "admin" and password == "1234":
-                st.session_state["login"] = True
-                st.rerun()
-            else:
-                st.error("❌ Wrong credentials — try admin / 1234")
-
-
-# ============================================
-# 📊 MAIN APP
+# MAIN APP
 # ============================================
 def app():
     st.title("🚀 InsightForge")
-    st.caption("Upload CSV → Clean → Visualize → Train ML → Get FREE AI Insights")
+    st.caption("Upload CSV → Clean → Visualize → Train ML → Get AI Insights")
     st.divider()
 
-    # ---- FILE UPLOAD + SAMPLE DATA BUTTON ----
-    col1, col2 = st.columns([3, 1])
+    col_upload, col_sample = st.columns([3, 1])
 
-    with col1:
+    with col_upload:
         file = st.file_uploader("📂 Upload your CSV file", type=["csv"])
 
-    with col2:
+    with col_sample:
         st.markdown("#### 🎯 No file? Try:")
         if st.button("Load Sample\nInventory Data", use_container_width=True):
             st.session_state["sample_loaded"] = True
             st.session_state.pop("clean_df", None)
 
-    # ---- DECIDE WHICH DATA TO USE ----
     if file is not None:
         df = pd.read_csv(file)
         st.session_state["sample_loaded"] = False
@@ -128,10 +107,7 @@ def app():
         st.info("👆 Upload a CSV file OR click 'Load Sample Inventory Data' to try a demo")
         return
 
-    # ============================================
-    # TABS
-    # ============================================
-    t1, t2, t3, t4, t5 = st.tabs([
+    tab_overview, tab_clean, tab_viz, tab_ml, tab_ai = st.tabs([
         "📄 Overview",
         "🧹 Clean Data",
         "📊 Visualize",
@@ -142,14 +118,14 @@ def app():
     # ============================================
     # TAB 1 — DATA OVERVIEW
     # ============================================
-    with t1:
+    with tab_overview:
         st.subheader("Dataset Overview")
 
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Rows", df.shape[0])
-        c2.metric("Columns", df.shape[1])
-        c3.metric("Missing Values", int(df.isnull().sum().sum()))
-        c4.metric("Duplicates", int(df.duplicated().sum()))
+        col_rows, col_cols, col_nulls, col_dupes = st.columns(4)
+        col_rows.metric("Rows", df.shape[0])
+        col_cols.metric("Columns", df.shape[1])
+        col_nulls.metric("Missing Values", int(df.isnull().sum().sum()))
+        col_dupes.metric("Duplicates", int(df.duplicated().sum()))
 
         st.markdown("#### 👀 Data Preview")
         st.dataframe(df.head(10), use_container_width=True)
@@ -176,7 +152,7 @@ def app():
     # ============================================
     # TAB 2 — AUTO CLEAN
     # ============================================
-    with t2:
+    with tab_clean:
         st.subheader("🧹 Auto Data Cleaning")
         st.info("Automatically detects and fixes missing values and duplicates")
 
@@ -204,9 +180,9 @@ def app():
             if not log:
                 log.append("✅ Data is already clean — no issues found!")
 
-            c1, c2 = st.columns(2)
-            c1.metric("Before", f"{df.shape[0]} rows")
-            c2.metric("After", f"{cleaned.shape[0]} rows")
+            col_before, col_after = st.columns(2)
+            col_before.metric("Before", f"{df.shape[0]} rows")
+            col_after.metric("After", f"{cleaned.shape[0]} rows")
 
             for item in log:
                 st.write(item)
@@ -221,22 +197,21 @@ def app():
                 mime="text/csv"
             )
 
-    # Use cleaned data if available
     data = st.session_state.get("clean_df", df)
 
     # ============================================
     # TAB 3 — VISUALIZATIONS
     # ============================================
-    with t3:
+    with tab_viz:
         st.subheader("📊 Visual Analysis")
         num_cols = data.select_dtypes(include=np.number).columns.tolist()
 
         if not num_cols:
             st.warning("No numeric columns found")
         else:
-            col1, col2 = st.columns(2)
+            col_left, col_right = st.columns(2)
 
-            with col1:
+            with col_left:
                 st.markdown("#### Column Chart")
                 chosen = st.selectbox("Select Column", num_cols)
                 chart = st.selectbox("Chart Type", ["Histogram", "Box Plot", "Line"])
@@ -253,27 +228,27 @@ def app():
                 plt.tight_layout()
                 st.pyplot(fig)
 
-            with col2:
+            with col_right:
                 st.markdown("#### Correlation Heatmap")
-                fig2, ax2 = plt.subplots(figsize=(7, 5))
+                fig_heatmap, ax_heatmap = plt.subplots(figsize=(7, 5))
                 sns.heatmap(data[num_cols].corr(), annot=True,
-                            cmap="coolwarm", fmt=".2f", ax=ax2,
+                            cmap="coolwarm", fmt=".2f", ax=ax_heatmap,
                             annot_kws={"size": 7})
-                ax2.set_title("Feature Correlation Matrix")
+                ax_heatmap.set_title("Feature Correlation Matrix")
                 plt.tight_layout()
-                st.pyplot(fig2)
+                st.pyplot(fig_heatmap)
 
             cat_cols = data.select_dtypes(include='object').columns.tolist()
             if cat_cols:
                 st.markdown("#### Category Breakdown")
                 cat = st.selectbox("Categorical Column", cat_cols)
-                fig3, ax3 = plt.subplots(figsize=(10, 4))
+                fig_bar, ax_bar = plt.subplots(figsize=(10, 4))
                 vc = data[cat].value_counts().head(10)
-                ax3.barh(vc.index.astype(str), vc.values, color="#4C72B0")
-                ax3.invert_yaxis()
-                ax3.set_title(f"Top values in '{cat}'")
+                ax_bar.barh(vc.index.astype(str), vc.values, color="#4C72B0")
+                ax_bar.invert_yaxis()
+                ax_bar.set_title(f"Top values in '{cat}'")
                 plt.tight_layout()
-                st.pyplot(fig3)
+                st.pyplot(fig_bar)
 
             st.markdown("#### 🔍 Outlier Detection")
             outlier_col = st.selectbox("Check outliers in", num_cols, key="outlier")
@@ -292,7 +267,7 @@ def app():
     # ============================================
     # TAB 4 — ML MODEL
     # ============================================
-    with t4:
+    with tab_ml:
         st.subheader("🤖 Machine Learning Model")
 
         target = st.selectbox("🎯 Select Target Column", data.columns)
@@ -310,6 +285,7 @@ def app():
                 X, y, test_size=test_pct / 100, random_state=42
             )
 
+            # Use classification when target has 10 or fewer unique values
             is_clf = y.nunique() <= 10
 
             with st.spinner("Training model..."):
@@ -321,10 +297,10 @@ def app():
                     cv = cross_val_score(model, X, y, cv=5).mean()
                     metric_name = "Accuracy"
 
-                    c1, c2, c3 = st.columns(3)
-                    c1.metric("Problem Type", "Classification")
-                    c2.metric("Accuracy", f"{score:.2%}")
-                    c3.metric("CV Score", f"{cv:.2%}")
+                    col_type, col_acc, col_cv = st.columns(3)
+                    col_type.metric("Problem Type", "Classification")
+                    col_acc.metric("Accuracy", f"{score:.2%}")
+                    col_cv.metric("CV Score", f"{cv:.2%}")
 
                     st.markdown("#### Confusion Matrix")
                     cm = confusion_matrix(y_test, preds)
@@ -340,20 +316,20 @@ def app():
                     cv = cross_val_score(model, X, y, cv=5, scoring='r2').mean()
                     metric_name = "R² Score"
 
-                    c1, c2, c3 = st.columns(3)
-                    c1.metric("Problem Type", "Regression")
-                    c2.metric("R² Score", f"{score:.4f}")
-                    c3.metric("CV Score", f"{cv:.4f}")
+                    col_type, col_r2, col_cv = st.columns(3)
+                    col_type.metric("Problem Type", "Regression")
+                    col_r2.metric("R² Score", f"{score:.4f}")
+                    col_cv.metric("CV Score", f"{cv:.4f}")
 
                     st.markdown("#### Actual vs Predicted")
-                    fig_ap, ax_ap = plt.subplots(figsize=(7, 4))
-                    ax_ap.scatter(y_test, preds, alpha=0.6, color="#4C72B0")
-                    ax_ap.plot([y_test.min(), y_test.max()],
-                               [y_test.min(), y_test.max()], 'r--', lw=2)
-                    ax_ap.set_xlabel("Actual")
-                    ax_ap.set_ylabel("Predicted")
-                    ax_ap.set_title("Actual vs Predicted")
-                    st.pyplot(fig_ap)
+                    fig_pred, ax_pred = plt.subplots(figsize=(7, 4))
+                    ax_pred.scatter(y_test, preds, alpha=0.6, color="#4C72B0")
+                    ax_pred.plot([y_test.min(), y_test.max()],
+                                 [y_test.min(), y_test.max()], 'r--', lw=2)
+                    ax_pred.set_xlabel("Actual")
+                    ax_pred.set_ylabel("Predicted")
+                    ax_pred.set_title("Actual vs Predicted")
+                    st.pyplot(fig_pred)
 
             st.markdown("#### 📊 Feature Importance")
             imp = pd.DataFrame({
@@ -361,12 +337,12 @@ def app():
                 "Importance": model.feature_importances_
             }).sort_values("Importance", ascending=False)
 
-            fig_i, ax_i = plt.subplots(figsize=(8, 4))
-            ax_i.barh(imp["Feature"][:10], imp["Importance"][:10], color="#4C72B0")
-            ax_i.invert_yaxis()
-            ax_i.set_title("Top Features by Importance")
+            fig_imp, ax_imp = plt.subplots(figsize=(8, 4))
+            ax_imp.barh(imp["Feature"][:10], imp["Importance"][:10], color="#4C72B0")
+            ax_imp.invert_yaxis()
+            ax_imp.set_title("Top Features by Importance")
             plt.tight_layout()
-            st.pyplot(fig_i)
+            st.pyplot(fig_imp)
             st.dataframe(imp, use_container_width=True)
 
             st.session_state.update({
@@ -386,7 +362,7 @@ def app():
     # ============================================
     # TAB 5 — AI INSIGHTS
     # ============================================
-    with t5:
+    with tab_ai:
         st.subheader("🧠 AI-Powered Business Insights")
         st.caption("Powered by LLaMA3 via Groq — 100% Free")
 
@@ -394,11 +370,11 @@ def app():
             st.warning("⚠️ Please train a model first in the ML Model tab")
             return
 
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Model", st.session_state["model_name"])
-        c2.metric(st.session_state["metric"], f"{st.session_state['score']:.2%}")
-        c3.metric("CV Score", f"{st.session_state['cv']:.2%}")
-        c4.metric("Problem", st.session_state["problem"])
+        col_model, col_score, col_cv, col_type = st.columns(4)
+        col_model.metric("Model", st.session_state["model_name"])
+        col_score.metric(st.session_state["metric"], f"{st.session_state['score']:.2%}")
+        col_cv.metric("CV Score", f"{st.session_state['cv']:.2%}")
+        col_type.metric("Problem", st.session_state["problem"])
 
         insight_type = st.selectbox("What do you want to know?", [
             "📊 Full Model Performance Analysis",
@@ -476,12 +452,6 @@ Generated by InsightForge | insightforge1234.streamlit.app
 
 
 # ============================================
-# ▶ RUN APP
+# RUN APP
 # ============================================
-if "login" not in st.session_state:
-    st.session_state["login"] = False
-
-if not st.session_state["login"]:
-    login()
-else:
-    app()
+app()
